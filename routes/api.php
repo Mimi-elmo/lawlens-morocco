@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\LegalStructureController as AdminLegalStructureController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LegalStructureController;
 use Illuminate\Http\Request;
@@ -20,4 +21,7 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
     Route::get('/dashboard', function () {
         return response()->json(['message' => 'Admin dashboard']);
     });
+
+    Route::apiResource('legal-structures', AdminLegalStructureController::class)
+        ->only(['store', 'update', 'destroy']);
 });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\LegalRuleController as AdminLegalRuleController;
 use App\Http\Controllers\Admin\LegalStructureController as AdminLegalStructureController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LegalRuleController;
@@ -28,4 +29,7 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
 
     Route::apiResource('legal-structures', AdminLegalStructureController::class)
         ->only(['store', 'update', 'destroy']);
+
+    Route::apiResource('legal-rules', AdminLegalRuleController::class)
+        ->only(['index', 'store', 'show', 'update', 'destroy']);
 });

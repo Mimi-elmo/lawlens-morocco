@@ -1,8 +1,9 @@
 <?php
 
 use App\Providers\AppServiceProvider;
+use Laravel\Ai\AiServiceProvider;
 
 return [
     AppServiceProvider::class,
-    Laravel\Ai\AiServiceProvider::class,
+    AiServiceProvider::class,
 ];

@@ -2,8 +2,9 @@
 
 use App\Models\LegalStructure;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 beforeEach(function () {
     $this->admin = User::factory()->admin()->create();
@@ -15,7 +16,7 @@ beforeEach(function () {
 
 it('admin can create a legal structure', function () {
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $this->adminToken,
+        'Authorization' => 'Bearer '.$this->adminToken,
     ])->postJson('/api/admin/legal-structures', [
         'nom' => 'Nouvelle Structure',
         'slug' => 'nouvelle-structure',
@@ -34,7 +35,7 @@ it('admin can update a legal structure', function () {
     $structure = LegalStructure::factory()->create();
 
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $this->adminToken,
+        'Authorization' => 'Bearer '.$this->adminToken,
     ])->putJson("/api/admin/legal-structures/{$structure->id}", [
         'nom' => 'Structure Modifiée',
     ]);
@@ -51,7 +52,7 @@ it('admin can delete a legal structure', function () {
     $structure = LegalStructure::factory()->create();
 
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $this->adminToken,
+        'Authorization' => 'Bearer '.$this->adminToken,
     ])->deleteJson("/api/admin/legal-structures/{$structure->id}");
 
     $response->assertStatus(200)
@@ -64,7 +65,7 @@ it('admin can delete a legal structure', function () {
 
 it('entrepreneur cannot create a legal structure', function () {
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $this->userToken,
+        'Authorization' => 'Bearer '.$this->userToken,
     ])->postJson('/api/admin/legal-structures', [
         'nom' => 'Test',
         'slug' => 'test',
@@ -77,7 +78,7 @@ it('entrepreneur cannot update a legal structure', function () {
     $structure = LegalStructure::factory()->create();
 
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $this->userToken,
+        'Authorization' => 'Bearer '.$this->userToken,
     ])->putJson("/api/admin/legal-structures/{$structure->id}", [
         'nom' => 'Hacked',
     ]);
@@ -89,7 +90,7 @@ it('entrepreneur cannot delete a legal structure', function () {
     $structure = LegalStructure::factory()->create();
 
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $this->userToken,
+        'Authorization' => 'Bearer '.$this->userToken,
     ])->deleteJson("/api/admin/legal-structures/{$structure->id}");
 
     $response->assertStatus(403);
@@ -97,7 +98,7 @@ it('entrepreneur cannot delete a legal structure', function () {
 
 it('validates required fields on create', function () {
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $this->adminToken,
+        'Authorization' => 'Bearer '.$this->adminToken,
     ])->postJson('/api/admin/legal-structures', []);
 
     $response->assertStatus(422)
@@ -108,7 +109,7 @@ it('validates unique slug on create', function () {
     LegalStructure::factory()->create(['slug' => 'existant']);
 
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $this->adminToken,
+        'Authorization' => 'Bearer '.$this->adminToken,
     ])->postJson('/api/admin/legal-structures', [
         'nom' => 'Test',
         'slug' => 'existant',

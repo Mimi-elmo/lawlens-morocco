@@ -1,11 +1,13 @@
 <?php
 
 use App\Models\LegalStructure;
+use Database\Seeders\LegalStructureSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 beforeEach(function () {
-    $this->seed(\Database\Seeders\LegalStructureSeeder::class);
+    $this->seed(LegalStructureSeeder::class);
 });
 
 it('returns all active legal structures', function () {

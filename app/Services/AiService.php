@@ -69,10 +69,10 @@ PROMPT;
     {
         $response = Http::timeout(120)
             ->withHeaders([
-                'Authorization' => 'Bearer ' . config('services.grok.api_key'),
+                'Authorization' => 'Bearer '.config('services.grok.api_key'),
                 'Content-Type' => 'application/json',
             ])
-            ->post(config('services.grok.base_url') . '/chat/completions', [
+            ->post(config('services.grok.base_url').'/chat/completions', [
                 'model' => 'grok-2-latest',
                 'messages' => [
                     [
@@ -86,7 +86,7 @@ PROMPT;
 
         if ($response->failed()) {
             throw new RuntimeException(
-                'Erreur API Grok : ' . $response->body()
+                'Erreur API Grok : '.$response->body()
             );
         }
 
@@ -99,7 +99,7 @@ PROMPT;
 
         $structureId = $data['forme_juridique_recommandee_id'] ?? null;
 
-        if ($structureId && !LegalStructure::where('id', $structureId)->exists()) {
+        if ($structureId && ! LegalStructure::where('id', $structureId)->exists()) {
             $structureId = null;
         }
 

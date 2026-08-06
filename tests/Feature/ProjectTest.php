@@ -2,8 +2,9 @@
 
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 it('lists authenticated user projects', function () {
     $user = User::factory()->create();

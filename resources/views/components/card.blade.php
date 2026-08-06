@@ -3,7 +3,7 @@
 <div {{ $attributes->merge(['class' => 'bg-surface rounded-xl border border-border shadow-card']) }}>
     @if ($header)
         <div class="px-6 py-4 border-b border-border">
-            {{ $header }}
+            {!! $header !!}
         </div>
     @endif
     @if ($padding)

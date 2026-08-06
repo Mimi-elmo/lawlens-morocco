@@ -1,11 +1,7 @@
 <?php
 
-use App\Http\Controllers\Web\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
-use App\Http\Controllers\Web\DashboardController;
-use App\Http\Controllers\Web\ProjectController;
-use App\Http\Controllers\Web\RoadmapController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

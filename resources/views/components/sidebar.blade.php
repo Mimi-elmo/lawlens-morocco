@@ -27,7 +27,7 @@
             <x-icon name="folder" class="size-5" />
             Projets
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900 transition-colors">
+        <a href="{{ route('roadmaps.index') }}" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors {{ $isRoadmaps ? 'bg-primary-50 text-primary-700' : 'text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900' }}">
             <x-icon name="document" class="size-5" />
             Roadmaps
         </a>
@@ -48,9 +48,9 @@
             @if(auth()->user()->isAdmin())
                 <hr class="my-3 border-border">
                 <p class="px-3 text-xs font-semibold text-secondary-400 uppercase tracking-wider">Administration</p>
-                <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900 transition-colors">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors {{ $isAdmin ? 'bg-primary-50 text-primary-700' : 'text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900' }}">
                     <x-icon name="users" class="size-5" />
-                    Utilisateurs
+                    Administration
                 </a>
             @endif
         @endauth

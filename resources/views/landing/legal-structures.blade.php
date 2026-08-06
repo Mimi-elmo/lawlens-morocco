@@ -37,7 +37,7 @@
         </div>
         <div class="text-center mt-12">
             <p class="text-secondary-500 mb-4">Et plus encore : GIE, SNC, SCS, Société en Participation...</p>
-            <x-button variant="primary" size="lg" href="{{ route('register') }}">
+            <x-button variant="primary" size="lg" href="{{ '#' }}">
                 Analyser ma situation
                 <x-icon name="arrow-right" class="size-5 ml-1" />
             </x-button>

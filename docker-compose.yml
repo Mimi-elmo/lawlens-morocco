@@ -1,0 +1,98 @@
+services:
+  app:
+    build:
+      context: .
+      target: production
+    container_name: lawlens-app
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    environment:
+      APP_ENV: production
+      APP_DEBUG: false
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: lawlens_morocco
+      DB_USERNAME: lawlens
+      DB_PASSWORD: "${DB_PASSWORD}"
+      QUEUE_CONNECTION: database
+      CACHE_STORE: database
+      SESSION_DRIVER: database
+    volumes:
+      - storage_data:/app/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - lawlens
+
+  queue-worker:
+    build:
+      context: .
+      target: production
+    container_name: lawlens-queue
+    restart: unless-stopped
+    command: php artisan queue:work --tries=3 --timeout=300
+    environment:
+      APP_ENV: production
+      APP_DEBUG: false
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: lawlens_morocco
+      DB_USERNAME: lawlens
+      DB_PASSWORD: "${DB_PASSWORD}"
+      QUEUE_CONNECTION: database
+      CACHE_STORE: database
+      SESSION_DRIVER: database
+    volumes:
+      - storage_data:/app/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - lawlens
+
+  mysql:
+    image: mysql:8.4
+    container_name: lawlens-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: lawlens_morocco
+      MYSQL_USER: lawlens
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - lawlens
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: lawlens-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./public:/app/public:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - lawlens
+
+volumes:
+  mysql_data:
+  storage_data:
+
+networks:
+  lawlens:
+    driver: bridge

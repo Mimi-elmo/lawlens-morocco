@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LegalRuleController;
 use App\Http\Controllers\LegalStructureController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RoadmapController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/legal-structures', [LegalStructureController::class, 'index']);
@@ -24,6 +25,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'entrepreneur']);
 
     Route::apiResource('projects', ProjectController::class);
+    Route::post('/projects/{project}/generate-roadmap', [ProjectController::class, 'generateRoadmap'])->name('projects.generate-roadmap');
+
+    Route::get('/projects/{project}/roadmaps', [RoadmapController::class, 'index'])->name('roadmaps.index');
+    Route::get('/roadmaps/{roadmap}', [RoadmapController::class, 'show'])->name('roadmaps.show');
+    Route::patch('/roadmaps/{roadmap}/steps/{step}', [RoadmapController::class, 'updateStep'])->name('roadmaps.steps.update');
 });
 
 Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {

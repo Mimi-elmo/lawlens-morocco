@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\LegalRuleController as AdminLegalRuleController;
 use App\Http\Controllers\Admin\LegalStructureController as AdminLegalStructureController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LegalRuleController;
 use App\Http\Controllers\LegalStructureController;
 use App\Http\Controllers\ProjectController;
@@ -22,6 +23,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/dashboard', [DashboardController::class, 'entrepreneur']);
 
     Route::apiResource('projects', ProjectController::class);
 
@@ -32,9 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', function () {
-        return response()->json(['message' => 'Admin dashboard']);
-    });
+    Route::get('/dashboard', [DashboardController::class, 'admin']);
 
     Route::apiResource('legal-structures', AdminLegalStructureController::class)
         ->only(['store', 'update', 'destroy']);

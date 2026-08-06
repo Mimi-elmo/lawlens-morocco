@@ -23,9 +23,14 @@ Route::post('/logout', function () {
 })->name('logout');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('projects', ProjectController::class);
+    Route::get('/roadmaps', [RoadmapController::class, 'index'])->name('roadmaps.index');
+    Route::get('/roadmaps/{roadmap}', [RoadmapController::class, 'show'])->name('roadmaps.show');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::get('/ui-preview', function () {

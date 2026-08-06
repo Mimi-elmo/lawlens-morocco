@@ -17,7 +17,7 @@ class RoadmapFactory extends Factory
             'project_id' => Project::factory(),
             'forme_juridique_recommandee_id' => LegalStructure::factory(),
             'resume' => fake()->paragraph(),
-            'reponse_IA' => fake()->json(),
+            'reponse_IA' => fake()->text(500),
             'statut' => fake()->randomElement(['pending', 'generating', 'completed', 'failed']),
             'progression' => fake()->numberBetween(0, 100),
             'date_generation' => fake()->dateTime(),

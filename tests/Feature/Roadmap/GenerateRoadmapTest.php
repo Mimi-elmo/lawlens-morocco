@@ -3,9 +3,10 @@
 use App\Jobs\GenerateRoadmap;
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 it('dispatches roadmap generation job', function () {
     Queue::fake();

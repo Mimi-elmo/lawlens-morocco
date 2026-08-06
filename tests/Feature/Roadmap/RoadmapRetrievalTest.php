@@ -3,8 +3,9 @@
 use App\Models\Project;
 use App\Models\Roadmap;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 it('lists roadmaps for a project', function () {
     $user = User::factory()->create();

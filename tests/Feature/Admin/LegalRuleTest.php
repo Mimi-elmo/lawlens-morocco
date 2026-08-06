@@ -2,11 +2,13 @@
 
 use App\Models\LegalRule;
 use App\Models\User;
+use Database\Seeders\LegalRuleSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 beforeEach(function () {
-    $this->seed(\Database\Seeders\LegalRuleSeeder::class);
+    $this->seed(LegalRuleSeeder::class);
     $this->admin = User::factory()->admin()->create();
     $this->entrepreneur = User::factory()->create();
 });

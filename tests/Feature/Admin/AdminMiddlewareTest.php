@@ -1,15 +1,16 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 it('allows admin to access admin routes', function () {
     $admin = User::factory()->admin()->create();
     $token = $admin->createToken('auth-token')->plainTextToken;
 
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $token,
+        'Authorization' => 'Bearer '.$token,
     ])->getJson('/api/admin/dashboard');
 
     $response->assertStatus(200);
@@ -20,7 +21,7 @@ it('blocks entrepreneur from admin routes', function () {
     $token = $user->createToken('auth-token')->plainTextToken;
 
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $token,
+        'Authorization' => 'Bearer '.$token,
     ])->getJson('/api/admin/dashboard');
 
     $response->assertStatus(403);

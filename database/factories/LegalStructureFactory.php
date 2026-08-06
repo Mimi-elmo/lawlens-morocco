@@ -25,7 +25,7 @@ class LegalStructureFactory extends Factory
 
         return [
             'nom' => $nom,
-            'slug' => Str::slug($nom) . '-' . Str::random(4),
+            'slug' => Str::slug($nom).'-'.Str::random(4),
             'description' => fake()->paragraph(),
             'capital_information' => fake()->sentence(),
             'tax_information' => fake()->sentence(),

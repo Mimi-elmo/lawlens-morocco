@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Web\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
+use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\RoadmapController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,12 +22,12 @@ Route::post('/logout', function () {
     auth()->logout();
     request()->session()->invalidate();
     request()->session()->regenerateToken();
+
     return redirect('/');
 })->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('projects', ProjectController::class);
     Route::get('/roadmaps', [RoadmapController::class, 'index'])->name('roadmaps.index');
     Route::get('/roadmaps/{roadmap}', [RoadmapController::class, 'show'])->name('roadmaps.show');
 });

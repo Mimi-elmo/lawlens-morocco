@@ -4,8 +4,9 @@ use App\Models\Project;
 use App\Models\Roadmap;
 use App\Models\RoadmapStep;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 it('updates step status and progression', function () {
     $user = User::factory()->create();

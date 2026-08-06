@@ -1,8 +1,9 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 it('can login with valid credentials', function () {
     $user = User::factory()->create([
@@ -50,7 +51,7 @@ it('can logout and revoke token', function () {
     $token = $user->createToken('auth-token')->plainTextToken;
 
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $token,
+        'Authorization' => 'Bearer '.$token,
     ])->postJson('/api/logout');
 
     $response->assertStatus(200);
@@ -63,7 +64,7 @@ it('returns authenticated user via /me', function () {
     $token = $user->createToken('auth-token')->plainTextToken;
 
     $response = $this->withHeaders([
-        'Authorization' => 'Bearer ' . $token,
+        'Authorization' => 'Bearer '.$token,
     ])->getJson('/api/me');
 
     $response->assertStatus(200)

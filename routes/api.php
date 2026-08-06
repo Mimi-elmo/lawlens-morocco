@@ -8,7 +8,6 @@ use App\Http\Controllers\LegalRuleController;
 use App\Http\Controllers\LegalStructureController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoadmapController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/legal-structures', [LegalStructureController::class, 'index']);

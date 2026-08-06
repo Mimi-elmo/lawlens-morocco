@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\LegalStructure;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class LegalStructureSeeder extends Seeder
 {

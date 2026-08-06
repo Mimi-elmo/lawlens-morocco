@@ -1,11 +1,13 @@
 <?php
 
 use App\Models\LegalRule;
+use Database\Seeders\LegalRuleSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 beforeEach(function () {
-    $this->seed(\Database\Seeders\LegalRuleSeeder::class);
+    $this->seed(LegalRuleSeeder::class);
 });
 
 it('returns all active legal rules', function () {

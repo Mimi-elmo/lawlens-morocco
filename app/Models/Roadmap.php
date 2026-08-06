@@ -47,4 +47,17 @@ class Roadmap extends Model
     {
         return $this->hasMany(TaxObligation::class, 'roadmap_id');
     }
+
+    public function updateProgress(): void
+    {
+        $total = $this->steps()->count();
+        $completed = $this->steps()->where('statut', 'completed')->count();
+        $progression = $total > 0 ? round($completed / $total * 100) : 0;
+
+        $this->update(['progression' => $progression]);
+
+        if ($progression === 100) {
+            $this->update(['statut' => 'completed']);
+        }
+    }
 }

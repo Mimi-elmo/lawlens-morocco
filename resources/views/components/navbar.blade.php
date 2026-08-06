@@ -39,7 +39,7 @@
                             Paramètres
                         </a>
                         <hr class="my-1 border-border">
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="#">
                             @csrf
                             <button type="submit" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-danger hover:bg-red-50">
                                 <x-icon name="logout" class="size-4" />
@@ -49,10 +49,10 @@
                     </x-slot:content>
                 </x-dropdown>
             @else
-                <x-button variant="secondary" size="sm" href="{{ route('login') }}">
+                <x-button variant="secondary" size="sm" href="#">
                     Connexion
                 </x-button>
-                <x-button variant="primary" size="sm" href="{{ route('register') }}">
+                <x-button variant="primary" size="sm" href="#">
                     Inscription
                 </x-button>
             @endauth

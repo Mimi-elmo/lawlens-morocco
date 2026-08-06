@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Project\StoreProjectRequest;
 use App\Http\Requests\Project\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
+use App\Jobs\GenerateRoadmapJob;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -68,5 +69,30 @@ class ProjectController extends Controller
         return response()->json([
             'message' => 'Projet supprimé avec succès.',
         ]);
+    }
+
+    public function generateRoadmap(int $id): JsonResponse
+    {
+        $project = Project::findOrFail($id);
+
+        $this->authorize('update', $project);
+
+        if ($project->roadmaps()->whereIn('statut', ['pending', 'generating'])->exists()) {
+            return response()->json([
+                'message' => 'Un roadmap est déjà en cours de génération pour ce projet.',
+            ], 409);
+        }
+
+        $project->roadmaps()->create([
+            'statut' => 'pending',
+            'date_generation' => now(),
+        ]);
+
+        GenerateRoadmapJob::dispatch($project);
+
+        return response()->json([
+            'message' => 'Génération du roadmap lancée.',
+            'project_id' => $project->id,
+        ], 202);
     }
 }

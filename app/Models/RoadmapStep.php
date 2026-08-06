@@ -11,7 +11,6 @@ class RoadmapStep extends Model
 {
     /** @use HasFactory<RoadmapStepFactory> */
     use HasFactory;
-
     protected $fillable = [
         'roadmap_id',
         'titre',

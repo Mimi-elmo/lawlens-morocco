@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Roadmap\UpdateRoadmapStepRequest;
 use App\Http\Resources\RoadmapResource;
+use App\Http\Resources\RoadmapStepResource;
+use App\Jobs\GenerateRoadmap;
 use App\Models\Project;
 use App\Models\Roadmap;
 use App\Models\RoadmapStep;
@@ -11,12 +14,14 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RoadmapController extends Controller
 {
-    public function index(Project $project): AnonymousResourceCollection
+    public function index(int $projectId): AnonymousResourceCollection
     {
+        $project = Project::findOrFail($projectId);
+
         $this->authorize('view', $project);
 
         $roadmaps = $project->roadmaps()
-            ->withCount(['steps', 'steps as completed_steps' => fn ($q) => $q->where('statut', 'completed')])
+            ->with(['steps', 'documents', 'taxObligations'])
             ->latest()
             ->get();
 
@@ -25,43 +30,43 @@ class RoadmapController extends Controller
 
     public function show(Roadmap $roadmap): RoadmapResource
     {
-        $this->authorize('view', $roadmap->project);
+        $this->authorize('view', $roadmap);
 
-        $roadmap->load(['steps' => fn ($q) => $q->orderBy('ordre'), 'documents', 'taxObligations', 'formeJuridiqueRecommendee']);
+        $roadmap->load(['steps', 'documents', 'taxObligations']);
 
         return new RoadmapResource($roadmap);
     }
 
-    public function updateStep(Roadmap $roadmap, RoadmapStep $step): JsonResponse
+    public function generate(int $projectId): JsonResponse
     {
-        $this->authorize('update', $roadmap->project);
+        $project = Project::findOrFail($projectId);
 
-        if ($step->roadmap_id !== $roadmap->id) {
-            return response()->json(['message' => 'Cette étape n\'appartient pas à ce roadmap.'], 400);
-        }
+        $this->authorize('view', $project);
 
-        $allowed = [
-            'pending' => 'in_progress',
-            'in_progress' => 'completed',
-        ];
-
-        $next = $allowed[$step->statut] ?? null;
-
-        if (! $next) {
-            return response()->json([
-                'message' => 'Transition de statut non autorisée.',
-                'current' => $step->statut,
-                'allowed_transitions' => array_keys($allowed),
-            ], 400);
-        }
-
-        $step->update(['statut' => $next]);
-        $roadmap->updateProgress();
+        GenerateRoadmap::dispatch($project);
 
         return response()->json([
-            'message' => 'Statut mis à jour.',
-            'step' => $step->fresh(),
-            'progression' => $roadmap->fresh()->progression,
+            'message' => 'Génération de la feuille de route lancée.',
+        ], 202);
+    }
+
+    public function updateStep(RoadmapStep $step, UpdateRoadmapStepRequest $request): JsonResponse
+    {
+        $this->authorize('view', $step->roadmap);
+
+        $step->update(['statut' => $request->statut]);
+
+        $roadmap = $step->roadmap;
+        $totalSteps = $roadmap->steps()->count();
+        $completedSteps = $roadmap->steps()->where('statut', 'completed')->count();
+        $progression = $totalSteps > 0 ? round(($completedSteps / $totalSteps) * 100) : 0;
+
+        $roadmap->update(['progression' => $progression]);
+
+        return response()->json([
+            'step' => new RoadmapStepResource($step->fresh()),
+            'progression' => $progression,
+            'message' => 'Statut de l\'étape mis à jour.',
         ]);
     }
 }

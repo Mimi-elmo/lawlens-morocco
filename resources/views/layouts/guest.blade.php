@@ -8,6 +8,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="antialiased bg-background">
-    @yield('content')
+    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+        <a href="/" class="mb-8 inline-block">
+            <x-logo />
+        </a>
+        <div class="w-full max-w-md">
+            @yield('content')
+        </div>
+    </div>
 </body>
 </html>

@@ -8,7 +8,7 @@
             <h1 class="text-2xl font-bold text-secondary-900">Tableau de bord</h1>
             <p class="text-secondary-500 mt-1">Bienvenue, {{ auth()->user()->name }}.</p>
         </div>
-        <x-button variant="primary" href="#">
+        <x-button variant="primary" href="{{ route('projects.create') }}">
             <x-icon name="plus" class="size-4" />
             Nouveau projet
         </x-button>
@@ -59,7 +59,7 @@
             </x-slot:header>
             @if ($recentProjects->isEmpty())
                 <x-empty-state icon="folder" title="Aucun projet" message="Créez votre premier projet pour commencer.">
-                    <x-button variant="primary" href="#">Créer un projet</x-button>
+                    <x-button variant="primary" href="{{ route('projects.create') }}">Créer un projet</x-button>
                 </x-empty-state>
             @else
                 <div class="divide-y divide-border">
@@ -89,7 +89,7 @@
             </x-slot:header>
             @if ($recentRoadmaps->isEmpty())
                 <x-empty-state icon="document" title="Aucune roadmap" message="Générez votre première roadmap depuis un projet.">
-                    <x-button variant="primary" href="#">Créer un projet</x-button>
+                    <x-button variant="primary" href="{{ route('projects.create') }}">Créer un projet</x-button>
                 </x-empty-state>
             @else
                 <div class="divide-y divide-border">
@@ -116,7 +116,7 @@
     </div>
 
     <div class="grid sm:grid-cols-3 gap-6">
-        <a href="#" class="group bg-white rounded-xl border border-border p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+        <a href="{{ route('projects.create') }}" class="group bg-white rounded-xl border border-border p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
             <div class="size-10 rounded-lg bg-primary-100 text-primary-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 <x-icon name="plus" class="size-5" />
             </div>

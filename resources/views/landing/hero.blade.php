@@ -16,7 +16,7 @@
                     LawLens combine intelligence artificielle et expertise juridique marocaine pour générer votre roadmap de création d'entreprise personnalisée en quelques secondes.
                 </p>
                 <div class="mt-8 flex flex-wrap gap-4">
-                    <x-button variant="primary" size="lg" href="{{ '#' }}">
+                    <x-button variant="primary" size="lg" href="{{ route('register') }}">
                         Commencer gratuitement
                         <x-icon name="arrow-right" class="size-5 ml-1" />
                     </x-button>

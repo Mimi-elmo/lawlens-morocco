@@ -13,7 +13,7 @@
     $errorMessage = $error ?: ($errors->first($name) ?? '');
 @endphp
 
-<div {{ $attributes->whereDoesntStartWith('wire:model') }}>
+<div {{ $attributes }}>
     @if ($label)
         <label for="{{ $name }}" class="block text-sm font-medium text-secondary-700 mb-1">
             {{ $label }}
@@ -26,7 +26,6 @@
         id="{{ $name }}"
         placeholder="{{ $placeholder }}"
         @if($required) required @endif
-        {{ $attributes->wire('model') }}
         @class([
             'block w-full rounded-lg border px-3 py-2 text-sm shadow-sm transition-colors',
             'placeholder:text-secondary-400 focus:outline-none focus:ring-2 focus:ring-offset-0',

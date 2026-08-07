@@ -10,6 +10,20 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    /**
+     * Statistiques du tableau de bord entrepreneur
+     *
+     * @response scenario="success" {
+     *  "projects_count": 3,
+     *  "projects_by_status": {"en_cours": 2, "termine": 1},
+     *  "roadmaps_count": 2,
+     *  "roadmaps_by_status": {"en_cours": 1, "complete": 1},
+     *  "global_progression": 45,
+     *  "recent_roadmaps": [
+     *      {"id": 1, "project_id": 2, "statut": "en_cours", "progression": 50, "date_generation": "2026-08-01T10:00:00.000000Z"}
+     *  ]
+     * }
+     */
     public function entrepreneur(Request $request): JsonResponse
     {
         $user = $request->user();
@@ -40,6 +54,21 @@ class DashboardController extends Controller
         ]);
     }
 
+    /**
+     * Statistiques du tableau de bord administrateur
+     *
+     * @response scenario="success" {
+     *  "total_users": 12,
+     *  "users_by_role": {"entrepreneur": 10, "admin": 2},
+     *  "total_projects": 25,
+     *  "projects_by_status": {"en_cours": 15, "termine": 10},
+     *  "total_roadmaps": 20,
+     *  "roadmaps_by_status": {"en_cours": 12, "complete": 8},
+     *  "recent_users": [
+     *      {"id": 1, "name": "Yasmine Alaoui", "email": "yasmine@example.com", "role": "entrepreneur", "created_at": "2026-08-01T10:00:00.000000Z"}
+     *  ]
+     * }
+     */
     public function admin(): JsonResponse
     {
         $totalUsers = User::count();

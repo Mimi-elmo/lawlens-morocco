@@ -11,6 +11,19 @@ use Illuminate\Http\JsonResponse;
 
 class LegalStructureController extends Controller
 {
+    /**
+     * Créer une structure juridique
+     *
+     * @response status=201 scenario="success" {
+     *  "message": "Structure juridique créée avec succès.",
+     *  "data": {
+     *      "id": 1,
+     *      "nom": "SARL",
+     *      "slug": "sarl",
+     *      "description": "Société à responsabilité limitée"
+     *  }
+     * }
+     */
     public function store(StoreLegalStructureRequest $request): JsonResponse
     {
         $structure = LegalStructure::create($request->validated());
@@ -21,6 +34,18 @@ class LegalStructureController extends Controller
         ], 201);
     }
 
+    /**
+     * Mettre à jour une structure juridique
+     *
+     * @response scenario="success" {
+     *  "message": "Structure juridique mise à jour avec succès.",
+     *  "data": {
+     *      "id": 1,
+     *      "nom": "SARL",
+     *      "slug": "sarl"
+     *  }
+     * }
+     */
     public function update(UpdateLegalStructureRequest $request, LegalStructure $legalStructure): JsonResponse
     {
         $legalStructure->update($request->validated());
@@ -31,6 +56,13 @@ class LegalStructureController extends Controller
         ]);
     }
 
+    /**
+     * Supprimer une structure juridique
+     *
+     * @response {
+     *  "message": "Structure juridique supprimée avec succès."
+     * }
+     */
     public function destroy(LegalStructure $legalStructure): JsonResponse
     {
         $legalStructure->delete();

@@ -1,0 +1,1061 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost:8000"
+        }
+    ],
+    "info": {
+        "name": "LawLens Morocco API Documentation",
+        "_postman_id": "4d533bce-9c5b-4f7f-ab6c-07be7e32bd06",
+        "description": "API de LawLens Morocco \u2014 accompagnement juridique des entrepreneurs au Maroc (Sanctum).",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "Liste des structures juridiques actives",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/legal-structures",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/legal-structures"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": [\n     {\n         \"id\": 1,\n         \"nom\": \"SARL\",\n         \"slug\": \"sarl\",\n         \"description\": \"Soci\u00e9t\u00e9 \u00e0 responsabilit\u00e9 limit\u00e9e\",\n         \"capital_information\": \"\u2026\",\n         \"tax_information\": \"\u2026\"\n     }\n ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "D\u00e9tail d'une structure juridique",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/legal-structures\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/legal-structures\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the legal structure."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": {\n     \"id\": 1,\n     \"nom\": \"SARL\",\n     \"slug\": \"sarl\",\n     \"description\": \"Soci\u00e9t\u00e9 \u00e0 responsabilit\u00e9 limit\u00e9e\",\n     \"capital_information\": \"\u2026\",\n     \"tax_information\": \"\u2026\"\n }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Liste des r\u00e8gles juridiques actives",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/legal-rules",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/legal-rules"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": [\n     {\n         \"id\": 1,\n         \"titre\": \"D\u00e9claration de cessation d'activit\u00e9\",\n         \"description\": \"\u2026\",\n         \"categorie\": \"fiscal\",\n         \"source\": \"DGI\",\n         \"date_entree_vigueur\": \"2024-01-01\"\n     }\n ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "D\u00e9tail d'une r\u00e8gle juridique",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/legal-rules\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/legal-rules\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the legal rule."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": {\n     \"id\": 1,\n     \"titre\": \"D\u00e9claration de cessation d'activit\u00e9\",\n     \"description\": \"\u2026\",\n     \"categorie\": \"fiscal\",\n     \"source\": \"DGI\",\n     \"date_entree_vigueur\": \"2024-01-01\"\n }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Inscription d'un entrepreneur",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"b\",\"email\":\"zbailey@example.net\",\"password\":\"-0pBNvYgxw\"}"
+                        },
+                        "description": "Cr\u00e9e un compte entrepreneur et retourne un jeton Sanctum.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"user\": {\n     \"id\": 1,\n     \"name\": \"Yasmine Alaoui\",\n     \"email\": \"yasmine@example.com\",\n     \"role\": \"entrepreneur\",\n     \"statut\": \"actif\"\n },\n \"token\": \"1|abc123...\"\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "Connexion",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"gbailey@example.net\",\"password\":\"|]|{+-\"}"
+                        },
+                        "description": "Retourne le profil utilisateur et un jeton Sanctum.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"user\": {\n     \"id\": 1,\n     \"name\": \"Yasmine Alaoui\",\n     \"email\": \"yasmine@example.com\",\n     \"role\": \"entrepreneur\"\n },\n \"token\": \"1|abc123...\"\n}",
+                            "name": "success"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n \"message\": \"Identifiants invalides.\"\n}",
+                            "name": "invalid credentials"
+                        }
+                    ]
+                },
+                {
+                    "name": "D\u00e9connexion",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "R\u00e9voque le jeton Sanctum courant."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"D\u00e9connect\u00e9 avec succ\u00e8s.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Profil de l'utilisateur connect\u00e9",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/me",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/me"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"user\": {\n     \"id\": 1,\n     \"name\": \"Yasmine Alaoui\",\n     \"email\": \"yasmine@example.com\",\n     \"role\": \"entrepreneur\"\n }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Statistiques du tableau de bord entrepreneur",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/dashboard",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/dashboard"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"projects_count\": 3,\n \"projects_by_status\": {\"en_cours\": 2, \"termine\": 1},\n \"roadmaps_count\": 2,\n \"roadmaps_by_status\": {\"en_cours\": 1, \"complete\": 1},\n \"global_progression\": 45,\n \"recent_roadmaps\": [\n     {\"id\": 1, \"project_id\": 2, \"statut\": \"en_cours\", \"progression\": 50, \"date_generation\": \"2026-08-01T10:00:00.000000Z\"}\n ]\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "Liste des projets de l'utilisateur connect\u00e9",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/projects",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/projects"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": [\n     {\n         \"id\": 1,\n         \"nom\": \"Boulangerie Amal\",\n         \"activite\": \"Artisanat alimentaire\",\n         \"description\": \"\u2026\",\n         \"ville\": \"Casablanca\",\n         \"budget\": 200000,\n         \"nombre_associes\": 2,\n         \"type_activite\": \"commerce\",\n         \"statut\": \"en_creation\",\n         \"roadmaps_count\": 1,\n         \"created_at\": \"2026-08-01T10:00:00.000000Z\",\n         \"updated_at\": \"2026-08-01T10:00:00.000000Z\"\n     }\n ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Cr\u00e9er un projet",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/projects",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/projects"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"nom\":\"b\",\"activite\":\"n\",\"description\":\"Eius et animi quos velit et.\",\"ville\":\"v\",\"budget\":42,\"nombre_associes\":40,\"type_activite\":\"societe\",\"statut\":\"brouillon\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"project\": {\n     \"id\": 1,\n     \"nom\": \"Boulangerie Amal\",\n     \"activite\": \"Artisanat alimentaire\",\n     \"statut\": \"en_creation\"\n },\n \"message\": \"Projet cr\u00e9\u00e9 avec succ\u00e8s.\"\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "D\u00e9tail d'un projet",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/projects\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/projects\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the project."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": {\n     \"id\": 1,\n     \"nom\": \"Boulangerie Amal\",\n     \"roadmaps_count\": 1\n }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Mettre \u00e0 jour un projet",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/projects\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/projects\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the project."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"nom\":\"b\",\"activite\":\"n\",\"description\":\"Eius et animi quos velit et.\",\"ville\":\"v\",\"budget\":42,\"nombre_associes\":40,\"type_activite\":\"individuelle\",\"statut\":\"brouillon\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"project\": {\n     \"id\": 1,\n     \"nom\": \"Boulangerie Amal\",\n     \"statut\": \"en_creation\"\n },\n \"message\": \"Projet mis \u00e0 jour avec succ\u00e8s.\"\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "Supprimer un projet",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/projects\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/projects\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the project."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"Projet supprim\u00e9 avec succ\u00e8s.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Liste des feuilles de route d'un projet",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/projects\/:project\/roadmaps",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/projects\/:project\/roadmaps",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": 16,
+                                    "description": "L'identifiant du projet."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": [\n     {\n         \"id\": 1,\n         \"project_id\": 2,\n         \"forme_juridique_recommandee_id\": 1,\n         \"resume\": \"\u2026\",\n         \"statut\": \"en_cours\",\n         \"progression\": 45,\n         \"date_generation\": \"2026-08-01T10:00:00.000000Z\",\n         \"steps\": [\n             {\"id\": 1, \"roadmap_id\": 1, \"titre\": \"Choisir la forme juridique\", \"ordre\": 1, \"statut\": \"completed\"}\n         ],\n         \"documents\": [],\n         \"tax_obligations\": []\n     }\n ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "G\u00e9n\u00e9rer une feuille de route (asynchrone)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/projects\/:project\/roadmaps",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/projects\/:project\/roadmaps",
+                            "variable": [
+                                {
+                                    "id": "project",
+                                    "key": "project",
+                                    "value": 16,
+                                    "description": "L'identifiant du projet."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Lance le job de g\u00e9n\u00e9ration; la feuille de route est disponible via l'index du projet."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 202,
+                            "body": "{\n \"message\": \"G\u00e9n\u00e9ration de la feuille de route lanc\u00e9e.\"\n}",
+                            "name": "accepted"
+                        }
+                    ]
+                },
+                {
+                    "name": "D\u00e9tail d'une feuille de route",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/roadmaps\/:roadmap_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/roadmaps\/:roadmap_id",
+                            "variable": [
+                                {
+                                    "id": "roadmap_id",
+                                    "key": "roadmap_id",
+                                    "value": 16,
+                                    "description": "The ID of the roadmap."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": {\n     \"id\": 1,\n     \"project_id\": 2,\n     \"statut\": \"en_cours\",\n     \"progression\": 45\n }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Mettre \u00e0 jour le statut d'une \u00e9tape",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/roadmap-steps\/:step_id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/roadmap-steps\/:step_id",
+                            "variable": [
+                                {
+                                    "id": "step_id",
+                                    "key": "step_id",
+                                    "value": 16,
+                                    "description": "The ID of the step."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"statut\":\"in_progress\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"step\": {\n     \"id\": 1,\n     \"roadmap_id\": 2,\n     \"titre\": \"Enregistrer la soci\u00e9t\u00e9\",\n     \"ordre\": 2,\n     \"statut\": \"completed\"\n },\n \"progression\": 66,\n \"message\": \"Statut de l'\u00e9tape mis \u00e0 jour.\"\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "Statistiques du tableau de bord administrateur",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/dashboard",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/dashboard"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"total_users\": 12,\n \"users_by_role\": {\"entrepreneur\": 10, \"admin\": 2},\n \"total_projects\": 25,\n \"projects_by_status\": {\"en_cours\": 15, \"termine\": 10},\n \"total_roadmaps\": 20,\n \"roadmaps_by_status\": {\"en_cours\": 12, \"complete\": 8},\n \"recent_users\": [\n     {\"id\": 1, \"name\": \"Yasmine Alaoui\", \"email\": \"yasmine@example.com\", \"role\": \"entrepreneur\", \"created_at\": \"2026-08-01T10:00:00.000000Z\"}\n ]\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "Cr\u00e9er une structure juridique",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/legal-structures",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/legal-structures"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"nom\":\"b\",\"slug\":\"n\",\"description\":\"Eius et animi quos velit et.\",\"capital_information\":\"architecto\",\"tax_information\":\"architecto\",\"statut\":\"active\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"message\": \"Structure juridique cr\u00e9\u00e9e avec succ\u00e8s.\",\n \"data\": {\n     \"id\": 1,\n     \"nom\": \"SARL\",\n     \"slug\": \"sarl\",\n     \"description\": \"Soci\u00e9t\u00e9 \u00e0 responsabilit\u00e9 limit\u00e9e\"\n }\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "Mettre \u00e0 jour une structure juridique",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/legal-structures\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/legal-structures\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": 1,
+                                    "description": "The ID of the legal structure."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"nom\":\"b\",\"slug\":\"n\",\"description\":\"Eius et animi quos velit et.\",\"capital_information\":\"architecto\",\"tax_information\":\"architecto\",\"statut\":\"inactive\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"Structure juridique mise \u00e0 jour avec succ\u00e8s.\",\n \"data\": {\n     \"id\": 1,\n     \"nom\": \"SARL\",\n     \"slug\": \"sarl\"\n }\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "Supprimer une structure juridique",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/legal-structures\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/legal-structures\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": 1,
+                                    "description": "The ID of the legal structure."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"Structure juridique supprim\u00e9e avec succ\u00e8s.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Liste de toutes les r\u00e8gles juridiques",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/legal-rules",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/legal-rules"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": [\n     {\n         \"id\": 1,\n         \"titre\": \"D\u00e9claration de cessation d'activit\u00e9\",\n         \"description\": \"\u2026\",\n         \"categorie\": \"fiscal\",\n         \"source\": \"DGI\",\n         \"date_entree_vigueur\": \"2024-01-01\"\n     }\n ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Cr\u00e9er une r\u00e8gle juridique",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/legal-rules",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/legal-rules"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"titre\":\"b\",\"description\":\"Eius et animi quos velit et.\",\"categorie\":\"document\",\"source\":\"v\",\"date_entree_vigueur\":\"2026-08-07T17:25:37\",\"statut\":\"inactive\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"legal_rule\": {\n     \"id\": 1,\n     \"titre\": \"D\u00e9claration de cessation d'activit\u00e9\",\n     \"categorie\": \"fiscal\"\n },\n \"message\": \"R\u00e8gle juridique cr\u00e9\u00e9e avec succ\u00e8s.\"\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "D\u00e9tail d'une r\u00e8gle juridique",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/legal-rules\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/legal-rules\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the legal rule."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"data\": {\n     \"id\": 1,\n     \"titre\": \"D\u00e9claration de cessation d'activit\u00e9\",\n     \"categorie\": \"fiscal\"\n }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Mettre \u00e0 jour une r\u00e8gle juridique",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/legal-rules\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/legal-rules\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the legal rule."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"titre\":\"b\",\"description\":\"Eius et animi quos velit et.\",\"categorie\":\"legal\",\"source\":\"v\",\"date_entree_vigueur\":\"2026-08-07T17:25:37\",\"statut\":\"inactive\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"legal_rule\": {\n     \"id\": 1,\n     \"titre\": \"D\u00e9claration de cessation d'activit\u00e9\",\n     \"categorie\": \"fiscal\"\n },\n \"message\": \"R\u00e8gle juridique mise \u00e0 jour avec succ\u00e8s.\"\n}",
+                            "name": "success"
+                        }
+                    ]
+                },
+                {
+                    "name": "Supprimer une r\u00e8gle juridique",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/admin\/legal-rules\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/admin\/legal-rules\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "architecto",
+                                    "description": "The ID of the legal rule."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n \"message\": \"R\u00e8gle juridique supprim\u00e9e avec succ\u00e8s.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "key",
+                "type": "string"
+            }
+        ]
+    }
+}

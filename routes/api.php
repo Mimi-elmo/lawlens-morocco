@@ -24,7 +24,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/dashboard', [DashboardController::class, 'entrepreneur']);
 
-    Route::apiResource('projects', ProjectController::class);
+    Route::apiResource('projects', ProjectController::class)->names([
+    'index' => 'api.projects.index',
+    'store' => 'api.projects.store',
+    'show' => 'api.projects.show',
+    'update' => 'api.projects.update',
+    'destroy' => 'api.projects.destroy',
+]);
 
     Route::get('/projects/{project}/roadmaps', [RoadmapController::class, 'index']);
     Route::post('/projects/{project}/roadmaps', [RoadmapController::class, 'generate']);

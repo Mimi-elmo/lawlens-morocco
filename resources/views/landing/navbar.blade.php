@@ -10,8 +10,8 @@
                 </div>
             </div>
             <div class="hidden lg:flex items-center gap-3">
-                <x-button variant="ghost" size="sm" href="{{ '#' }}">Connexion</x-button>
-                <x-button variant="primary" size="sm" href="{{ '#' }}">S'inscrire</x-button>
+                <x-button variant="ghost" size="sm" href="{{ route('login') }}">Connexion</x-button>
+                <x-button variant="primary" size="sm" href="{{ route('register') }}">S'inscrire</x-button>
             </div>
             <button @click="mobileOpen = !mobileOpen" class="lg:hidden text-secondary-600 hover:text-primary-600">
                 <x-icon name="menu" class="size-6" />
@@ -23,7 +23,7 @@
         <a href="#structures" @click="mobileOpen = false" class="block text-sm text-secondary-600 hover:text-primary-600">Structures</a>
         <a href="#faq" @click="mobileOpen = false" class="block text-sm text-secondary-600 hover:text-primary-600">FAQ</a>
         <hr class="border-border">
-        <x-button variant="ghost" size="sm" href="{{ '#' }}" class="w-full">Connexion</x-button>
-        <x-button variant="primary" size="sm" href="{{ '#' }}" class="w-full">S'inscrire</x-button>
+        <x-button variant="ghost" size="sm" href="{{ route('login') }}" class="w-full">Connexion</x-button>
+        <x-button variant="primary" size="sm" href="{{ route('register') }}" class="w-full">S'inscrire</x-button>
     </div>
 </nav>

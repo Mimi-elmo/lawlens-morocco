@@ -8,11 +8,11 @@
             Rejoignez les entrepreneurs qui utilisent LawLens pour créer leur entreprise au Maroc en toute confiance.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-            <a href="{{ '#' }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary-700 font-semibold rounded-lg hover:bg-primary-50 shadow-xl shadow-black/10 transition-all hover:scale-105">
+            <a href="{{ route('register') }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary-700 font-semibold rounded-lg hover:bg-primary-50 shadow-xl shadow-black/10 transition-all hover:scale-105">
                 Commencer gratuitement
                 <x-icon name="arrow-right" class="size-5" />
             </a>
-            <a href="{{ '#' }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white/10 text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-all">
+            <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white/10 text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-all">
                 Déjà un compte
             </a>
         </div>

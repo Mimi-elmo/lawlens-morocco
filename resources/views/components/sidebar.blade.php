@@ -18,12 +18,14 @@
         @php
             $isDashboard = request()->routeIs('dashboard');
             $isProjects = request()->routeIs('projects.*');
+            $isRoadmaps = request()->routeIs('roadmaps.*');
+            $isAdmin = request()->routeIs('admin.dashboard');
         @endphp
-        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors {{ $isDashboard ? 'bg-primary-50 text-primary-700' : 'text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900' }}">
+        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors {{ $isDashboard ? 'bg-primary-50 text-primary-700' : 'text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900' }}">
             <x-icon name="chart" class="size-5" />
             Tableau de bord
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors {{ $isProjects ? 'bg-primary-50 text-primary-700' : 'text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900' }}">
+        <a href="{{ route('projects.index') }}" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors {{ $isProjects ? 'bg-primary-50 text-primary-700' : 'text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900' }}">
             <x-icon name="folder" class="size-5" />
             Projets
         </a>

@@ -1,3 +1,5 @@
 @extends('layouts.app')
 
-@section('title', @yield('page-title', 'Dashboard'))
+@section('title')
+    @yield('page-title', 'Dashboard')
+@endsection

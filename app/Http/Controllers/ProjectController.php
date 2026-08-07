@@ -11,6 +11,28 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProjectController extends Controller
 {
+    /**
+     * Liste des projets de l'utilisateur connecté
+     *
+     * @response {
+     *  "data": [
+     *      {
+     *          "id": 1,
+     *          "nom": "Boulangerie Amal",
+     *          "activite": "Artisanat alimentaire",
+     *          "description": "…",
+     *          "ville": "Casablanca",
+     *          "budget": 200000,
+     *          "nombre_associes": 2,
+     *          "type_activite": "commerce",
+     *          "statut": "en_creation",
+     *          "roadmaps_count": 1,
+     *          "created_at": "2026-08-01T10:00:00.000000Z",
+     *          "updated_at": "2026-08-01T10:00:00.000000Z"
+     *      }
+     *  ]
+     * }
+     */
     public function index(): AnonymousResourceCollection
     {
         $projects = Project::where('user_id', auth()->id())
@@ -21,6 +43,19 @@ class ProjectController extends Controller
         return ProjectResource::collection($projects);
     }
 
+    /**
+     * Créer un projet
+     *
+     * @response status=201 scenario="success" {
+     *  "project": {
+     *      "id": 1,
+     *      "nom": "Boulangerie Amal",
+     *      "activite": "Artisanat alimentaire",
+     *      "statut": "en_creation"
+     *  },
+     *  "message": "Projet créé avec succès."
+     * }
+     */
     public function store(StoreProjectRequest $request): JsonResponse
     {
         $project = Project::create([
@@ -34,6 +69,17 @@ class ProjectController extends Controller
         ], 201);
     }
 
+    /**
+     * Détail d'un projet
+     *
+     * @response {
+     *  "data": {
+     *      "id": 1,
+     *      "nom": "Boulangerie Amal",
+     *      "roadmaps_count": 1
+     *  }
+     * }
+     */
     public function show(int $id): ProjectResource
     {
         $project = Project::withCount('roadmaps')->findOrFail($id);
@@ -43,6 +89,18 @@ class ProjectController extends Controller
         return new ProjectResource($project);
     }
 
+    /**
+     * Mettre à jour un projet
+     *
+     * @response scenario="success" {
+     *  "project": {
+     *      "id": 1,
+     *      "nom": "Boulangerie Amal",
+     *      "statut": "en_creation"
+     *  },
+     *  "message": "Projet mis à jour avec succès."
+     * }
+     */
     public function update(int $id, UpdateProjectRequest $request): JsonResponse
     {
         $project = Project::findOrFail($id);
@@ -57,6 +115,13 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+     * Supprimer un projet
+     *
+     * @response {
+     *  "message": "Projet supprimé avec succès."
+     * }
+     */
     public function destroy(int $id): JsonResponse
     {
         $project = Project::findOrFail($id);

@@ -11,6 +11,24 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+     * Inscription d'un entrepreneur
+     *
+     * Crée un compte entrepreneur et retourne un jeton Sanctum.
+     *
+     * @unauthenticated
+     *
+     * @response status=201 scenario="success" {
+     *  "user": {
+     *      "id": 1,
+     *      "name": "Yasmine Alaoui",
+     *      "email": "yasmine@example.com",
+     *      "role": "entrepreneur",
+     *      "statut": "actif"
+     *  },
+     *  "token": "1|abc123..."
+     * }
+     */
     public function register(RegisterRequest $request): JsonResponse
     {
         $user = User::create([
@@ -29,6 +47,26 @@ class AuthController extends Controller
         ], 201);
     }
 
+    /**
+     * Connexion
+     *
+     * Retourne le profil utilisateur et un jeton Sanctum.
+     *
+     * @unauthenticated
+     *
+     * @response scenario="success" {
+     *  "user": {
+     *      "id": 1,
+     *      "name": "Yasmine Alaoui",
+     *      "email": "yasmine@example.com",
+     *      "role": "entrepreneur"
+     *  },
+     *  "token": "1|abc123..."
+     * }
+     * @response status=401 scenario="invalid credentials" {
+     *  "message": "Identifiants invalides."
+     * }
+     */
     public function login(LoginRequest $request): JsonResponse
     {
         $user = User::where('email', $request->email)->first();
@@ -47,6 +85,15 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Déconnexion
+     *
+     * Révoque le jeton Sanctum courant.
+     *
+     * @response {
+     *  "message": "Déconnecté avec succès."
+     * }
+     */
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
@@ -56,6 +103,18 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Profil de l'utilisateur connecté
+     *
+     * @response {
+     *  "user": {
+     *      "id": 1,
+     *      "name": "Yasmine Alaoui",
+     *      "email": "yasmine@example.com",
+     *      "role": "entrepreneur"
+     *  }
+     * }
+     */
     public function me(Request $request): JsonResponse
     {
         return response()->json([

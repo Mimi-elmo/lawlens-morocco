@@ -1,0 +1,1680 @@
+openapi: 3.0.3
+info:
+  title: 'LawLens Morocco API Documentation'
+  description: 'API de LawLens Morocco — accompagnement juridique des entrepreneurs au Maroc (Sanctum).'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8000'
+tags:
+  -
+    name: Endpoints
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: "Récupérez un jeton en vous authentifiant via <b>POST /api/login</b> (ou <b>POST /api/register</b>), puis envoyez-le dans l'en-tête <code>Authorization: Bearer &lt;token&gt;</code>."
+security:
+  -
+    default: []
+paths:
+  /api/legal-structures:
+    get:
+      summary: 'Liste des structures juridiques actives'
+      operationId: listeDesStructuresJuridiquesActives
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      nom: SARL
+                      slug: sarl
+                      description: 'Société à responsabilité limitée'
+                      capital_information: …
+                      tax_information: …
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        nom: SARL
+                        slug: sarl
+                        description: 'Société à responsabilité limitée'
+                        capital_information: …
+                        tax_information: …
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        nom:
+                          type: string
+                          example: SARL
+                        slug:
+                          type: string
+                          example: sarl
+                        description:
+                          type: string
+                          example: 'Société à responsabilité limitée'
+                        capital_information:
+                          type: string
+                          example: …
+                        tax_information:
+                          type: string
+                          example: …
+      tags:
+        - Endpoints
+      security: []
+  '/api/legal-structures/{id}':
+    get:
+      summary: "Détail d'une structure juridique"
+      operationId: dtailDuneStructureJuridique
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    nom: SARL
+                    slug: sarl
+                    description: 'Société à responsabilité limitée'
+                    capital_information: …
+                    tax_information: …
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nom:
+                        type: string
+                        example: SARL
+                      slug:
+                        type: string
+                        example: sarl
+                      description:
+                        type: string
+                        example: 'Société à responsabilité limitée'
+                      capital_information:
+                        type: string
+                        example: …
+                      tax_information:
+                        type: string
+                        example: …
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the legal structure.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  /api/legal-rules:
+    get:
+      summary: 'Liste des règles juridiques actives'
+      operationId: listeDesRglesJuridiquesActives
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      titre: "Déclaration de cessation d'activité"
+                      description: …
+                      categorie: fiscal
+                      source: DGI
+                      date_entree_vigueur: '2024-01-01'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        titre: "Déclaration de cessation d'activité"
+                        description: …
+                        categorie: fiscal
+                        source: DGI
+                        date_entree_vigueur: '2024-01-01'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        titre:
+                          type: string
+                          example: "Déclaration de cessation d'activité"
+                        description:
+                          type: string
+                          example: …
+                        categorie:
+                          type: string
+                          example: fiscal
+                        source:
+                          type: string
+                          example: DGI
+                        date_entree_vigueur:
+                          type: string
+                          example: '2024-01-01'
+      tags:
+        - Endpoints
+      security: []
+  '/api/legal-rules/{id}':
+    get:
+      summary: "Détail d'une règle juridique"
+      operationId: dtailDuneRgleJuridique
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    titre: "Déclaration de cessation d'activité"
+                    description: …
+                    categorie: fiscal
+                    source: DGI
+                    date_entree_vigueur: '2024-01-01'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      titre:
+                        type: string
+                        example: "Déclaration de cessation d'activité"
+                      description:
+                        type: string
+                        example: …
+                      categorie:
+                        type: string
+                        example: fiscal
+                      source:
+                        type: string
+                        example: DGI
+                      date_entree_vigueur:
+                        type: string
+                        example: '2024-01-01'
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the legal rule.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  /api/register:
+    post:
+      summary: "Inscription d'un entrepreneur"
+      operationId: inscriptionDunEntrepreneur
+      description: 'Crée un compte entrepreneur et retourne un jeton Sanctum.'
+      parameters: []
+      responses:
+        201:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user:
+                    id: 1
+                    name: 'Yasmine Alaoui'
+                    email: yasmine@example.com
+                    role: entrepreneur
+                    statut: actif
+                  token: 1|abc123...
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Yasmine Alaoui'
+                      email:
+                        type: string
+                        example: yasmine@example.com
+                      role:
+                        type: string
+                        example: entrepreneur
+                      statut:
+                        type: string
+                        example: actif
+                  token:
+                    type: string
+                    example: 1|abc123...
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: validation.max.
+                  example: b
+                email:
+                  type: string
+                  description: 'validation.email validation.max.'
+                  example: zbailey@example.net
+                password:
+                  type: string
+                  description: validation.min.
+                  example: '-0pBNvYgxw'
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/login:
+    post:
+      summary: Connexion
+      operationId: connexion
+      description: 'Retourne le profil utilisateur et un jeton Sanctum.'
+      parameters: []
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user:
+                    id: 1
+                    name: 'Yasmine Alaoui'
+                    email: yasmine@example.com
+                    role: entrepreneur
+                  token: 1|abc123...
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Yasmine Alaoui'
+                      email:
+                        type: string
+                        example: yasmine@example.com
+                      role:
+                        type: string
+                        example: entrepreneur
+                  token:
+                    type: string
+                    example: 1|abc123...
+        401:
+          description: 'invalid credentials'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Identifiants invalides.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Identifiants invalides.'
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: validation.email.
+                  example: gbailey@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: '|]|{+-'
+              required:
+                - email
+                - password
+      security: []
+  /api/logout:
+    post:
+      summary: Déconnexion
+      operationId: dconnexion
+      description: 'Révoque le jeton Sanctum courant.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Déconnecté avec succès.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Déconnecté avec succès.'
+      tags:
+        - Endpoints
+  /api/me:
+    get:
+      summary: "Profil de l'utilisateur connecté"
+      operationId: profilDeLutilisateurConnect
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user:
+                    id: 1
+                    name: 'Yasmine Alaoui'
+                    email: yasmine@example.com
+                    role: entrepreneur
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Yasmine Alaoui'
+                      email:
+                        type: string
+                        example: yasmine@example.com
+                      role:
+                        type: string
+                        example: entrepreneur
+      tags:
+        - Endpoints
+  /api/dashboard:
+    get:
+      summary: 'Statistiques du tableau de bord entrepreneur'
+      operationId: statistiquesDuTableauDeBordEntrepreneur
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  projects_count: 3
+                  projects_by_status:
+                    en_cours: 2
+                    termine: 1
+                  roadmaps_count: 2
+                  roadmaps_by_status:
+                    en_cours: 1
+                    complete: 1
+                  global_progression: 45
+                  recent_roadmaps:
+                    -
+                      id: 1
+                      project_id: 2
+                      statut: en_cours
+                      progression: 50
+                      date_generation: '2026-08-01T10:00:00.000000Z'
+                properties:
+                  projects_count:
+                    type: integer
+                    example: 3
+                  projects_by_status:
+                    type: object
+                    properties:
+                      en_cours:
+                        type: integer
+                        example: 2
+                      termine:
+                        type: integer
+                        example: 1
+                  roadmaps_count:
+                    type: integer
+                    example: 2
+                  roadmaps_by_status:
+                    type: object
+                    properties:
+                      en_cours:
+                        type: integer
+                        example: 1
+                      complete:
+                        type: integer
+                        example: 1
+                  global_progression:
+                    type: integer
+                    example: 45
+                  recent_roadmaps:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        project_id: 2
+                        statut: en_cours
+                        progression: 50
+                        date_generation: '2026-08-01T10:00:00.000000Z'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        project_id:
+                          type: integer
+                          example: 2
+                        statut:
+                          type: string
+                          example: en_cours
+                        progression:
+                          type: integer
+                          example: 50
+                        date_generation:
+                          type: string
+                          example: '2026-08-01T10:00:00.000000Z'
+      tags:
+        - Endpoints
+  /api/projects:
+    get:
+      summary: "Liste des projets de l'utilisateur connecté"
+      operationId: listeDesProjetsDeLutilisateurConnect
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      nom: 'Boulangerie Amal'
+                      activite: 'Artisanat alimentaire'
+                      description: …
+                      ville: Casablanca
+                      budget: 200000
+                      nombre_associes: 2
+                      type_activite: commerce
+                      statut: en_creation
+                      roadmaps_count: 1
+                      created_at: '2026-08-01T10:00:00.000000Z'
+                      updated_at: '2026-08-01T10:00:00.000000Z'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        nom: 'Boulangerie Amal'
+                        activite: 'Artisanat alimentaire'
+                        description: …
+                        ville: Casablanca
+                        budget: 200000
+                        nombre_associes: 2
+                        type_activite: commerce
+                        statut: en_creation
+                        roadmaps_count: 1
+                        created_at: '2026-08-01T10:00:00.000000Z'
+                        updated_at: '2026-08-01T10:00:00.000000Z'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        nom:
+                          type: string
+                          example: 'Boulangerie Amal'
+                        activite:
+                          type: string
+                          example: 'Artisanat alimentaire'
+                        description:
+                          type: string
+                          example: …
+                        ville:
+                          type: string
+                          example: Casablanca
+                        budget:
+                          type: integer
+                          example: 200000
+                        nombre_associes:
+                          type: integer
+                          example: 2
+                        type_activite:
+                          type: string
+                          example: commerce
+                        statut:
+                          type: string
+                          example: en_creation
+                        roadmaps_count:
+                          type: integer
+                          example: 1
+                        created_at:
+                          type: string
+                          example: '2026-08-01T10:00:00.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2026-08-01T10:00:00.000000Z'
+      tags:
+        - Endpoints
+    post:
+      summary: 'Créer un projet'
+      operationId: crerUnProjet
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  project:
+                    id: 1
+                    nom: 'Boulangerie Amal'
+                    activite: 'Artisanat alimentaire'
+                    statut: en_creation
+                  message: 'Projet créé avec succès.'
+                properties:
+                  project:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nom:
+                        type: string
+                        example: 'Boulangerie Amal'
+                      activite:
+                        type: string
+                        example: 'Artisanat alimentaire'
+                      statut:
+                        type: string
+                        example: en_creation
+                  message:
+                    type: string
+                    example: 'Projet créé avec succès.'
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nom:
+                  type: string
+                  description: validation.max.
+                  example: b
+                activite:
+                  type: string
+                  description: validation.max.
+                  example: 'n'
+                description:
+                  type: string
+                  description: ''
+                  example: 'Eius et animi quos velit et.'
+                  nullable: true
+                ville:
+                  type: string
+                  description: validation.max.
+                  example: v
+                budget:
+                  type: number
+                  description: validation.min.
+                  example: 42
+                  nullable: true
+                nombre_associes:
+                  type: integer
+                  description: validation.min.
+                  example: 40
+                type_activite:
+                  type: string
+                  description: ''
+                  example: societe
+                  enum:
+                    - individuelle
+                    - societe
+                statut:
+                  type: string
+                  description: ''
+                  example: brouillon
+                  enum:
+                    - brouillon
+                    - en_cours
+                    - termine
+              required:
+                - nom
+                - activite
+                - ville
+                - nombre_associes
+                - type_activite
+  '/api/projects/{id}':
+    get:
+      summary: "Détail d'un projet"
+      operationId: dtailDunProjet
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    nom: 'Boulangerie Amal'
+                    roadmaps_count: 1
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nom:
+                        type: string
+                        example: 'Boulangerie Amal'
+                      roadmaps_count:
+                        type: integer
+                        example: 1
+      tags:
+        - Endpoints
+    put:
+      summary: 'Mettre à jour un projet'
+      operationId: mettreJourUnProjet
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  project:
+                    id: 1
+                    nom: 'Boulangerie Amal'
+                    statut: en_creation
+                  message: 'Projet mis à jour avec succès.'
+                properties:
+                  project:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nom:
+                        type: string
+                        example: 'Boulangerie Amal'
+                      statut:
+                        type: string
+                        example: en_creation
+                  message:
+                    type: string
+                    example: 'Projet mis à jour avec succès.'
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nom:
+                  type: string
+                  description: validation.max.
+                  example: b
+                activite:
+                  type: string
+                  description: validation.max.
+                  example: 'n'
+                description:
+                  type: string
+                  description: ''
+                  example: 'Eius et animi quos velit et.'
+                  nullable: true
+                ville:
+                  type: string
+                  description: validation.max.
+                  example: v
+                budget:
+                  type: number
+                  description: validation.min.
+                  example: 42
+                  nullable: true
+                nombre_associes:
+                  type: integer
+                  description: validation.min.
+                  example: 40
+                type_activite:
+                  type: string
+                  description: ''
+                  example: individuelle
+                  enum:
+                    - individuelle
+                    - societe
+                statut:
+                  type: string
+                  description: ''
+                  example: brouillon
+                  enum:
+                    - brouillon
+                    - en_cours
+                    - termine
+    delete:
+      summary: 'Supprimer un projet'
+      operationId: supprimerUnProjet
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Projet supprimé avec succès.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Projet supprimé avec succès.'
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the project.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/projects/{project}/roadmaps':
+    get:
+      summary: "Liste des feuilles de route d'un projet"
+      operationId: listeDesFeuillesDeRouteDunProjet
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      project_id: 2
+                      forme_juridique_recommandee_id: 1
+                      resume: …
+                      statut: en_cours
+                      progression: 45
+                      date_generation: '2026-08-01T10:00:00.000000Z'
+                      steps:
+                        -
+                          id: 1
+                          roadmap_id: 1
+                          titre: 'Choisir la forme juridique'
+                          ordre: 1
+                          statut: completed
+                      documents: []
+                      tax_obligations: []
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        project_id: 2
+                        forme_juridique_recommandee_id: 1
+                        resume: …
+                        statut: en_cours
+                        progression: 45
+                        date_generation: '2026-08-01T10:00:00.000000Z'
+                        steps:
+                          -
+                            id: 1
+                            roadmap_id: 1
+                            titre: 'Choisir la forme juridique'
+                            ordre: 1
+                            statut: completed
+                        documents: []
+                        tax_obligations: []
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        project_id:
+                          type: integer
+                          example: 2
+                        forme_juridique_recommandee_id:
+                          type: integer
+                          example: 1
+                        resume:
+                          type: string
+                          example: …
+                        statut:
+                          type: string
+                          example: en_cours
+                        progression:
+                          type: integer
+                          example: 45
+                        date_generation:
+                          type: string
+                          example: '2026-08-01T10:00:00.000000Z'
+                        steps:
+                          type: array
+                          example:
+                            -
+                              id: 1
+                              roadmap_id: 1
+                              titre: 'Choisir la forme juridique'
+                              ordre: 1
+                              statut: completed
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              roadmap_id:
+                                type: integer
+                                example: 1
+                              titre:
+                                type: string
+                                example: 'Choisir la forme juridique'
+                              ordre:
+                                type: integer
+                                example: 1
+                              statut:
+                                type: string
+                                example: completed
+                        documents:
+                          type: array
+                          example: []
+                        tax_obligations:
+                          type: array
+                          example: []
+      tags:
+        - Endpoints
+    post:
+      summary: 'Générer une feuille de route (asynchrone)'
+      operationId: gnrerUneFeuilleDeRouteasynchrone
+      description: "Lance le job de génération; la feuille de route est disponible via l'index du projet."
+      parameters: []
+      responses:
+        202:
+          description: accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Génération de la feuille de route lancée.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Génération de la feuille de route lancée.'
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: project
+        description: "L'identifiant du projet."
+        example: 16
+        required: true
+        schema:
+          type: integer
+  '/api/roadmaps/{roadmap_id}':
+    get:
+      summary: "Détail d'une feuille de route"
+      operationId: dtailDuneFeuilleDeRoute
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    project_id: 2
+                    statut: en_cours
+                    progression: 45
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      project_id:
+                        type: integer
+                        example: 2
+                      statut:
+                        type: string
+                        example: en_cours
+                      progression:
+                        type: integer
+                        example: 45
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: roadmap_id
+        description: 'The ID of the roadmap.'
+        example: 16
+        required: true
+        schema:
+          type: integer
+  '/api/roadmap-steps/{step_id}':
+    put:
+      summary: "Mettre à jour le statut d'une étape"
+      operationId: mettreJourLeStatutDunetape
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  step:
+                    id: 1
+                    roadmap_id: 2
+                    titre: 'Enregistrer la société'
+                    ordre: 2
+                    statut: completed
+                  progression: 66
+                  message: "Statut de l'étape mis à jour."
+                properties:
+                  step:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      roadmap_id:
+                        type: integer
+                        example: 2
+                      titre:
+                        type: string
+                        example: 'Enregistrer la société'
+                      ordre:
+                        type: integer
+                        example: 2
+                      statut:
+                        type: string
+                        example: completed
+                  progression:
+                    type: integer
+                    example: 66
+                  message:
+                    type: string
+                    example: "Statut de l'étape mis à jour."
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                statut:
+                  type: string
+                  description: ''
+                  example: in_progress
+                  enum:
+                    - pending
+                    - in_progress
+                    - completed
+              required:
+                - statut
+    parameters:
+      -
+        in: path
+        name: step_id
+        description: 'The ID of the step.'
+        example: 16
+        required: true
+        schema:
+          type: integer
+  /api/admin/dashboard:
+    get:
+      summary: 'Statistiques du tableau de bord administrateur'
+      operationId: statistiquesDuTableauDeBordAdministrateur
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  total_users: 12
+                  users_by_role:
+                    entrepreneur: 10
+                    admin: 2
+                  total_projects: 25
+                  projects_by_status:
+                    en_cours: 15
+                    termine: 10
+                  total_roadmaps: 20
+                  roadmaps_by_status:
+                    en_cours: 12
+                    complete: 8
+                  recent_users:
+                    -
+                      id: 1
+                      name: 'Yasmine Alaoui'
+                      email: yasmine@example.com
+                      role: entrepreneur
+                      created_at: '2026-08-01T10:00:00.000000Z'
+                properties:
+                  total_users:
+                    type: integer
+                    example: 12
+                  users_by_role:
+                    type: object
+                    properties:
+                      entrepreneur:
+                        type: integer
+                        example: 10
+                      admin:
+                        type: integer
+                        example: 2
+                  total_projects:
+                    type: integer
+                    example: 25
+                  projects_by_status:
+                    type: object
+                    properties:
+                      en_cours:
+                        type: integer
+                        example: 15
+                      termine:
+                        type: integer
+                        example: 10
+                  total_roadmaps:
+                    type: integer
+                    example: 20
+                  roadmaps_by_status:
+                    type: object
+                    properties:
+                      en_cours:
+                        type: integer
+                        example: 12
+                      complete:
+                        type: integer
+                        example: 8
+                  recent_users:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: 'Yasmine Alaoui'
+                        email: yasmine@example.com
+                        role: entrepreneur
+                        created_at: '2026-08-01T10:00:00.000000Z'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: 'Yasmine Alaoui'
+                        email:
+                          type: string
+                          example: yasmine@example.com
+                        role:
+                          type: string
+                          example: entrepreneur
+                        created_at:
+                          type: string
+                          example: '2026-08-01T10:00:00.000000Z'
+      tags:
+        - Endpoints
+  /api/admin/legal-structures:
+    post:
+      summary: 'Créer une structure juridique'
+      operationId: crerUneStructureJuridique
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Structure juridique créée avec succès.'
+                  data:
+                    id: 1
+                    nom: SARL
+                    slug: sarl
+                    description: 'Société à responsabilité limitée'
+                properties:
+                  message:
+                    type: string
+                    example: 'Structure juridique créée avec succès.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nom:
+                        type: string
+                        example: SARL
+                      slug:
+                        type: string
+                        example: sarl
+                      description:
+                        type: string
+                        example: 'Société à responsabilité limitée'
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nom:
+                  type: string
+                  description: validation.max.
+                  example: b
+                slug:
+                  type: string
+                  description: validation.max.
+                  example: 'n'
+                description:
+                  type: string
+                  description: ''
+                  example: 'Eius et animi quos velit et.'
+                  nullable: true
+                capital_information:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: true
+                tax_information:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: true
+                statut:
+                  type: string
+                  description: ''
+                  example: active
+                  enum:
+                    - active
+                    - inactive
+              required:
+                - nom
+                - slug
+  '/api/admin/legal-structures/{id}':
+    put:
+      summary: 'Mettre à jour une structure juridique'
+      operationId: mettreJourUneStructureJuridique
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Structure juridique mise à jour avec succès.'
+                  data:
+                    id: 1
+                    nom: SARL
+                    slug: sarl
+                properties:
+                  message:
+                    type: string
+                    example: 'Structure juridique mise à jour avec succès.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nom:
+                        type: string
+                        example: SARL
+                      slug:
+                        type: string
+                        example: sarl
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nom:
+                  type: string
+                  description: validation.max.
+                  example: b
+                slug:
+                  type: string
+                  description: validation.max.
+                  example: 'n'
+                description:
+                  type: string
+                  description: ''
+                  example: 'Eius et animi quos velit et.'
+                  nullable: true
+                capital_information:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: true
+                tax_information:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: true
+                statut:
+                  type: string
+                  description: ''
+                  example: inactive
+                  enum:
+                    - active
+                    - inactive
+    delete:
+      summary: 'Supprimer une structure juridique'
+      operationId: supprimerUneStructureJuridique
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Structure juridique supprimée avec succès.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Structure juridique supprimée avec succès.'
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the legal structure.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/admin/legal-rules:
+    get:
+      summary: 'Liste de toutes les règles juridiques'
+      operationId: listeDeToutesLesRglesJuridiques
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      titre: "Déclaration de cessation d'activité"
+                      description: …
+                      categorie: fiscal
+                      source: DGI
+                      date_entree_vigueur: '2024-01-01'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        titre: "Déclaration de cessation d'activité"
+                        description: …
+                        categorie: fiscal
+                        source: DGI
+                        date_entree_vigueur: '2024-01-01'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        titre:
+                          type: string
+                          example: "Déclaration de cessation d'activité"
+                        description:
+                          type: string
+                          example: …
+                        categorie:
+                          type: string
+                          example: fiscal
+                        source:
+                          type: string
+                          example: DGI
+                        date_entree_vigueur:
+                          type: string
+                          example: '2024-01-01'
+      tags:
+        - Endpoints
+    post:
+      summary: 'Créer une règle juridique'
+      operationId: crerUneRgleJuridique
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  legal_rule:
+                    id: 1
+                    titre: "Déclaration de cessation d'activité"
+                    categorie: fiscal
+                  message: 'Règle juridique créée avec succès.'
+                properties:
+                  legal_rule:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      titre:
+                        type: string
+                        example: "Déclaration de cessation d'activité"
+                      categorie:
+                        type: string
+                        example: fiscal
+                  message:
+                    type: string
+                    example: 'Règle juridique créée avec succès.'
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                titre:
+                  type: string
+                  description: validation.max.
+                  example: b
+                description:
+                  type: string
+                  description: ''
+                  example: 'Eius et animi quos velit et.'
+                  nullable: true
+                categorie:
+                  type: string
+                  description: ''
+                  example: document
+                  enum:
+                    - legal
+                    - administrative
+                    - fiscal
+                    - document
+                source:
+                  type: string
+                  description: validation.max.
+                  example: v
+                  nullable: true
+                date_entree_vigueur:
+                  type: string
+                  description: validation.date.
+                  example: '2026-08-07T17:25:37'
+                  nullable: true
+                statut:
+                  type: string
+                  description: ''
+                  example: inactive
+                  enum:
+                    - active
+                    - inactive
+              required:
+                - titre
+                - categorie
+  '/api/admin/legal-rules/{id}':
+    get:
+      summary: "Détail d'une règle juridique"
+      operationId: dtailDuneRgleJuridique
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    titre: "Déclaration de cessation d'activité"
+                    categorie: fiscal
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      titre:
+                        type: string
+                        example: "Déclaration de cessation d'activité"
+                      categorie:
+                        type: string
+                        example: fiscal
+      tags:
+        - Endpoints
+    put:
+      summary: 'Mettre à jour une règle juridique'
+      operationId: mettreJourUneRgleJuridique
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  legal_rule:
+                    id: 1
+                    titre: "Déclaration de cessation d'activité"
+                    categorie: fiscal
+                  message: 'Règle juridique mise à jour avec succès.'
+                properties:
+                  legal_rule:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      titre:
+                        type: string
+                        example: "Déclaration de cessation d'activité"
+                      categorie:
+                        type: string
+                        example: fiscal
+                  message:
+                    type: string
+                    example: 'Règle juridique mise à jour avec succès.'
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                titre:
+                  type: string
+                  description: validation.max.
+                  example: b
+                description:
+                  type: string
+                  description: ''
+                  example: 'Eius et animi quos velit et.'
+                  nullable: true
+                categorie:
+                  type: string
+                  description: ''
+                  example: legal
+                  enum:
+                    - legal
+                    - administrative
+                    - fiscal
+                    - document
+                source:
+                  type: string
+                  description: validation.max.
+                  example: v
+                  nullable: true
+                date_entree_vigueur:
+                  type: string
+                  description: validation.date.
+                  example: '2026-08-07T17:25:37'
+                  nullable: true
+                statut:
+                  type: string
+                  description: ''
+                  example: inactive
+                  enum:
+                    - active
+                    - inactive
+    delete:
+      summary: 'Supprimer une règle juridique'
+      operationId: supprimerUneRgleJuridique
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Règle juridique supprimée avec succès.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Règle juridique supprimée avec succès.'
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the legal rule.'
+        example: architecto
+        required: true
+        schema:
+          type: string

@@ -216,7 +216,7 @@ return [
     // Use configureStrategy() to specify settings for a strategy in the list.
     // Use removeStrategies() to remove an included strategy.
     // The class_exists guard keeps config loadable when Scribe isn't installed (dev-only dependency).
-    'strategies' => class_exists(\Knuckles\Scribe\Config\Defaults::class) ? [
+    'strategies' => class_exists(Defaults::class) ? [
         'metadata' => [
             ...Defaults::METADATA_STRATEGIES,
         ],

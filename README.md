@@ -59,8 +59,9 @@ interface web de démonstration :
 - **Backend** — Laravel 13.x (PHP 8.3), structure API-first.
 - **Base de données** — MySQL (local & Docker) ; tests sur SQLite en mémoire.
 - **Authentification** — Laravel Sanctum (`auth:sanctum`), rôles et policies.
-- **IA** — `laravel/ai` + fournisseur OpenAI (`gpt-4o`), découplé via `AiService`,
-  exécuté dans une file d'attente (`GenerateRoadmap`).
+- **IA** — fournisseur Grok (xAI, `AiService` + HTTP direct), modèle
+  `grok-2-latest` via `config/services.php`, exécuté dans une file d'attente
+  (`GenerateRoadmap`).
 - **File d'attente** — driver `database`.
 - **Front web** — Blade + Alpine.js + Tailwind (style design de l'interface).
 - **Infra** — Docker Compose (app + queue worker + MySQL + nginx), CI GitHub Actions.
@@ -93,12 +94,11 @@ php artisan serve
 ```
 
 > Un script d'installation rapide est disponible : `composer run setup`.
-> Pour la génération IA, complétez les variables suivantes dans `.env` :
+> Pour la génération IA, complétez la variable suivante dans `.env` :
 
 ```dotenv
-AI_PROVIDER=openai
-OPENAI_API_KEY=your-key
-OPENAI_MODEL=gpt-4o
+GROK_API_KEY=your-key
+GROK_BASE_URL=https://api.x.ai/v1
 ```
 
 ### Variables d'environnement clés
@@ -108,9 +108,8 @@ OPENAI_MODEL=gpt-4o
 | `DB_CONNECTION` / `DB_DATABASE` | Connexion MySQL | `mysql` / `lawlens_morocco` |
 | `QUEUE_CONNECTION` | File d'attente | `database` |
 | `SESSION_DRIVER` | Stockage session | `database` |
-| `AI_PROVIDER` | Fournisseur IA | `openai` |
-| `OPENAI_API_KEY` | Clé API du fournisseur IA | — |
-| `OPENAI_MODEL` | Modèle utilisé | `gpt-4o` |
+| `GROK_API_KEY` | Clé API du fournisseur IA (xAI) | — |
+| `GROK_BASE_URL` | URL de l'API | `https://api.x.ai/v1` |
 
 ### Lancer le worker de queue (nécessaire pour l'IA)
 
@@ -148,9 +147,54 @@ L'API REST est préfixée par `/api`. La documentation Scribe est disponible à
 
 ### Authentification
 
-Utilisez le jeton Sanctum renvoyé par `POST /api/login` dans l'en-tête
-`Authorization: Bearer <token>`. Pour les appels web soumis aux cookies,
-préfixez la session via `GET /sanctum/csrf-cookie`.
+L'API est protégée par **jetons Sanctum** (`Auth: Bearer`). Récupérez un jeton via
+`POST /api/register` ou `POST /api/login`, puis envoyez-le dans l'en-tête
+`Authorization: Bearer <token>`. Sans jeton (ou avec un jeton invalide), les
+routes protégées répondent `401 {"message":"Unauthenticated."}`.
+
+#### Exemple : créer un compte puis lister ses projets
+
+**cURL**
+
+```bash
+# 1. Inscription → retourne { "user": {...}, "token": "1|..." }
+curl -X POST http://localhost:8000/api/register \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{"name":"Yasmine","email":"yasmine@example.com","password":"secret-123","password_confirmation":"secret-123"}'
+
+# 2. Connexion (si déjà inscrit)
+curl -X POST http://localhost:8000/api/login \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{"email":"yasmine@example.com","password":"secret-123"}'
+
+# 3. Lister mes projets avec le jeton renvoyé
+curl http://localhost:8000/api/projects \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer 1|xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
+
+**PowerShell (Windows)**
+
+```powershell
+$login = Invoke-RestMethod -Method Post -Uri "http://localhost:8000/api/login" `
+  -ContentType "application/json" -Body '{"email":"yasmine@example.com","password":"secret-123"}'
+
+$token = $login.token
+Invoke-RestMethod -Uri "http://localhost:8000/api/projects" `
+  -Headers @{ Authorization = "Bearer $token"; Accept = "application/json" }
+```
+
+**Postman**
+
+1. `POST http://localhost:8000/api/login` avec le même corps JSON.
+2. Copier `token` depuis la réponse.
+3. Sur la requête `GET /api/projects`, onglet *Authorization* → type **Bearer Token** →
+   coller le jeton.
+
+Pour les appels web soumis aux cookies, préfixez la session via
+`GET /sanctum/csrf-cookie` (non requis en mode jeton pur).
 
 ## Docker
 
@@ -179,8 +223,8 @@ php artisan test
 ./vendor/bin/pest
 ```
 
-- 76 tests, ~180 assertions : authentification, rôles, CRUD légal, projets,
-  dashboard, roadmaps (génération, récupération, suivi d'étapes).
+- 87 tests, ~196 assertions : authentification, rôles, CRUD légal, projets,
+  dashboard, roadmaps (génération, récupération, suivi d'étapes), pages web.
 - Qualité : `vendor/bin/pint --test` (style), contrôlé en CI.
 
 ## Déploiement

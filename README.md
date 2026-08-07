@@ -152,6 +152,17 @@ Utilisez le jeton Sanctum renvoyé par `POST /api/login` dans l'en-tête
 `Authorization: Bearer <token>`. Pour les appels web soumis aux cookies,
 préfixez la session via `GET /sanctum/csrf-cookie`.
 
+### Accès par session (SPA, même domaine)
+
+L'API accepte aussi l'authentification par **session** (cookies) pour les clients
+« première partie » (même domaine, défini par `SANCTUM_STATEFUL_DOMAINS`) :
+une fois connecté sur l'interface web, les appels `/api/*` émis depuis le
+navigateur sont authentifiés par la session — aucun jeton requis.
+
+Les requêtes de type `POST/PUT/DELETE` doivent alors être précédées d'un appel à
+`GET /sanctum/csrf-cookie`, puis envoyer l'en-tête `X-XSRF-TOKEN` (valeur du
+cookie `XSRF-TOKEN`, décodée URL) pour valider le CSRF.
+
 ## Docker
 
 ```bash

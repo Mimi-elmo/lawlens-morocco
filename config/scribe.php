@@ -1,6 +1,5 @@
 <?php
 
-use Knuckles\Scribe\Config\AuthIn;
 use Knuckles\Scribe\Config\Defaults;
 use Knuckles\Scribe\Extracting\Strategies;
 
@@ -115,7 +114,8 @@ return [
         'default' => true,
 
         // Where is the auth value meant to be sent in a request?
-        'in' => AuthIn::BEARER->value,
+        // Value kept as a literal so the config loads without Scribe installed (dev-only dependency).
+        'in' => 'bearer',
 
         // The name of the auth parameter (e.g. token, key, apiKey) or header (e.g. Authorization, Api-Key).
         'name' => 'key',
@@ -215,7 +215,8 @@ return [
     // The strategies Scribe will use to extract information about your routes at each stage.
     // Use configureStrategy() to specify settings for a strategy in the list.
     // Use removeStrategies() to remove an included strategy.
-    'strategies' => [
+    // The class_exists guard keeps config loadable when Scribe isn't installed (dev-only dependency).
+    'strategies' => class_exists(\Knuckles\Scribe\Config\Defaults::class) ? [
         'metadata' => [
             ...Defaults::METADATA_STRATEGIES,
         ],
@@ -248,7 +249,7 @@ return [
         'responseFields' => [
             ...Defaults::RESPONSE_FIELDS_STRATEGIES,
         ],
-    ],
+    ] : [],
 
     // For response calls, API resource responses and transformer responses,
     // Scribe will try to start database transactions, so no changes are persisted to your database.

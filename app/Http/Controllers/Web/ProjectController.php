@@ -41,7 +41,7 @@ class ProjectController extends Controller
         ]);
 
         return redirect()->route('projects.show', $project)
-            ->with('success', 'Projet cr├⌐├⌐ avec succ├¿s.');
+            ->with('success', 'Projet créé avec succès.');
     }
 
     public function show(Project $project)
@@ -49,7 +49,12 @@ class ProjectController extends Controller
         $this->authorize('view', $project);
         $project->loadCount('roadmaps');
 
-        return view('projects.show', compact('project'));
+        $roadmaps = $project->roadmaps()
+            ->with('formeJuridiqueRecommendee:id,nom')
+            ->latest('date_generation')
+            ->get();
+
+        return view('projects.show', compact('project', 'roadmaps'));
     }
 
     public function edit(Project $project)
@@ -77,7 +82,7 @@ class ProjectController extends Controller
         $project->update($data);
 
         return redirect()->route('projects.show', $project)
-            ->with('success', 'Projet mis ├á jour avec succ├¿s.');
+            ->with('success', 'Projet mis à jour avec succès.');
     }
 
     public function destroy(Project $project)
@@ -86,6 +91,6 @@ class ProjectController extends Controller
         $project->delete();
 
         return redirect()->route('projects.index')
-            ->with('success', 'Projet supprim├⌐ avec succ├¿s.');
+            ->with('success', 'Projet supprimé avec succès.');
     }
 }

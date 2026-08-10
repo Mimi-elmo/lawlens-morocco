@@ -96,9 +96,9 @@ php artisan serve
 > Pour la génération IA, complétez les variables suivantes dans `.env` :
 
 ```dotenv
-AI_PROVIDER=openai
-OPENAI_API_KEY=your-key
-OPENAI_MODEL=gpt-4o
+GROQ_API_KEY=your-key
+GROQ_BASE_URL=https://api.groq.com/openai/v1
+GROQ_MODEL=llama-3.3-70b-versatile
 ```
 
 ### Variables d'environnement clés
@@ -108,9 +108,9 @@ OPENAI_MODEL=gpt-4o
 | `DB_CONNECTION` / `DB_DATABASE` | Connexion MySQL | `mysql` / `lawlens_morocco` |
 | `QUEUE_CONNECTION` | File d'attente | `database` |
 | `SESSION_DRIVER` | Stockage session | `database` |
-| `AI_PROVIDER` | Fournisseur IA | `openai` |
-| `OPENAI_API_KEY` | Clé API du fournisseur IA | — |
-| `OPENAI_MODEL` | Modèle utilisé | `gpt-4o` |
+| `GROQ_API_KEY` | Clé API Groq | — |
+| `GROQ_BASE_URL` | URL base de l'API Groq | `https://api.groq.com/openai/v1` |
+| `GROQ_MODEL` | Modèle Groq utilisé | `llama-3.3-70b-versatile` |
 
 ### Lancer le worker de queue (nécessaire pour l'IA)
 

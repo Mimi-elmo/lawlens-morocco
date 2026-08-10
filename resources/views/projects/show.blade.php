@@ -56,23 +56,54 @@
 
     <x-card>
         <x-slot:header>
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <x-icon name="document" class="size-5 text-accent-600" />
-                    <span class="font-semibold">Roadmaps</span>
+<div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <x-icon name="document" class="size-5 text-accent-600" />
+                        <span class="font-semibold">Roadmaps</span>
+                    </div>
+                    <form method="POST" action="{{ route('roadmaps.generate', $project) }}">
+                        @csrf
+                        <x-button type="submit" variant="primary" size="sm">
+                            <x-icon name="sparkles" class="size-4" />
+                            Générer une roadmap
+                        </x-button>
+                    </form>
                 </div>
-                <x-button variant="primary" size="sm" href="#">
-                    <x-icon name="sparkles" class="size-4" />
-                    Générer une roadmap
-                </x-button>
-            </div>
-        </x-slot:header>
+            </x-slot:header>
         @if ($project->roadmaps_count === 0)
             <x-empty-state icon="document" title="Aucune roadmap" message="Générez votre première roadmap avec l'IA pour ce projet.">
-                <x-button variant="primary" href="#">Générer avec l'IA</x-button>
+                <form method="POST" action="{{ route('roadmaps.generate', $project) }}">
+                    @csrf
+                    <x-button type="submit" variant="primary">Générer avec l'IA</x-button>
+                </form>
             </x-empty-state>
         @else
-            <p class="text-sm text-secondary-500">{{ $project->roadmaps_count }} roadmap(s) pour ce projet.</p>
+            <ul class="divide-y divide-border">
+                @foreach ($roadmaps as $roadmap)
+                    <li class="py-4 flex items-start justify-between gap-4">
+                        <div>
+                            <a href="{{ route('roadmaps.show', $roadmap) }}" class="text-sm font-medium text-secondary-900 hover:text-primary-600 transition-colors">
+                                Roadmap #{{ $roadmap->id }}
+                            </a>
+                            <p class="text-xs text-secondary-500 mt-1">
+                                {{ $roadmap->formeJuridiqueRecommendee?->nom ?? 'Structure recommandée indisponible' }}
+                            </p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <div class="w-32 bg-secondary-100 rounded-full h-1.5">
+                                    <div class="bg-primary-500 h-1.5 rounded-full" style="width: {{ $roadmap->progression }}%"></div>
+                                </div>
+                                <span class="text-xs text-secondary-500">{{ $roadmap->progression }}%</span>
+                            </div>
+                        </div>
+                        @php
+                            $statusMap = ['pending' => 'pending', 'in_progress' => 'info', 'completed' => 'success', 'failed' => 'danger'];
+                        @endphp
+                        <x-badge :variant="$statusMap[$roadmap->statut] ?? 'pending'">
+                            {{ match($roadmap->statut) { 'pending' => 'En attente', 'in_progress' => 'En cours', 'completed' => 'Terminé', 'failed' => 'Échec', default => $roadmap->statut } }}
+                        </x-badge>
+                    </li>
+                @endforeach
+            </ul>
         @endif
     </x-card>
 @endsection

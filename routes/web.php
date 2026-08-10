@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::get('/roadmaps', [RoadmapController::class, 'index'])->name('roadmaps.index');
     Route::get('/roadmaps/{roadmap}', [RoadmapController::class, 'show'])->name('roadmaps.show');
+    Route::post('/projects/{project}/roadmap', [RoadmapController::class, 'generate'])->name('roadmaps.generate');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

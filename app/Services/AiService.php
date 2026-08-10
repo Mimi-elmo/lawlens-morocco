@@ -69,11 +69,11 @@ PROMPT;
     {
         $response = Http::timeout(120)
             ->withHeaders([
-                'Authorization' => 'Bearer '.config('services.grok.api_key'),
+                'Authorization' => 'Bearer '.config('services.groq.api_key'),
                 'Content-Type' => 'application/json',
             ])
-            ->post(config('services.grok.base_url').'/chat/completions', [
-                'model' => 'grok-2-latest',
+            ->post(config('services.groq.base_url').'/chat/completions', [
+                'model' => config('services.groq.model'),
                 'messages' => [
                     [
                         'role' => 'user',

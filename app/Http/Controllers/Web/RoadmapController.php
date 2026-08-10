@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\GenerateRoadmap;
+use App\Models\Project;
 use App\Models\Roadmap;
+use Throwable;
 
 class RoadmapController extends Controller
 {
@@ -33,5 +36,22 @@ class RoadmapController extends Controller
         ]);
 
         return view('roadmaps.show', compact('roadmap'));
+    }
+
+    public function generate(Project $project)
+    {
+        $this->authorize('view', $project);
+
+        try {
+            GenerateRoadmap::dispatchSync($project);
+        } catch (Throwable $e) {
+            return redirect()->route('projects.show', $project)
+                ->with('error', 'Échec de la génération de la feuille de route : '.$e->getMessage());
+        }
+
+        $roadmap = $project->roadmaps()->latest('id')->first();
+
+        return redirect()->route('roadmaps.show', $roadmap)
+            ->with('success', 'Feuille de route générée avec succès.');
     }
 }

@@ -14,7 +14,12 @@
         <div class="flex-1 flex flex-col min-w-0">
             <x-navbar />
             <main class="flex-1 p-6">
-                <x-alert />
+                @if (session('success'))
+                    <x-alert type="success" :message="session('success')" />
+                @endif
+                @if (session('error'))
+                    <x-alert type="danger" :message="session('error')" />
+                @endif
                 @yield('content')
             </main>
             <x-footer />

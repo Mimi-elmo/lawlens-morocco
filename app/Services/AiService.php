@@ -86,7 +86,7 @@ PROMPT;
 
         if ($response->failed()) {
             throw new RuntimeException(
-                'Erreur API Grok : '.$response->body()
+                'Erreur API Groq : '.$response->body()
             );
         }
 
@@ -100,7 +100,7 @@ PROMPT;
         $structureId = $data['forme_juridique_recommandee_id'] ?? null;
 
         if ($structureId && ! LegalStructure::where('id', $structureId)->exists()) {
-            $structureId = null;
+            $structureId = LegalStructure::where('nom', $structureId)->value('id');
         }
 
         return [

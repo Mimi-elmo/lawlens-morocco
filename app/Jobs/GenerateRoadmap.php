@@ -14,7 +14,7 @@ use RuntimeException;
 class GenerateRoadmap implements ShouldQueue
 {
     use Dispatchable, Queueable;
-
+        
     public function __construct(
         public Project $project
     ) {}

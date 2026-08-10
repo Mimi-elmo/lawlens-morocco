@@ -2,6 +2,7 @@
     'label' => null,
     'name' => '',
     'type' => 'text',
+    'value' => null,
     'placeholder' => '',
     'helper' => null,
     'error' => null,
@@ -24,6 +25,7 @@
         type="{{ $type }}"
         name="{{ $name }}"
         id="{{ $name }}"
+        value="{{ old($name, $value) }}"
         placeholder="{{ $placeholder }}"
         @if($required) required @endif
         @class([

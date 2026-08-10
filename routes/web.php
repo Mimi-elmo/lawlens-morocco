@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Web\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Web\Admin\LegalRuleController as AdminLegalRuleController;
+use App\Http\Controllers\Web\Admin\LegalStructureController as AdminLegalStructureController;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
 use App\Http\Controllers\Web\DashboardController;
@@ -37,6 +39,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('structures', AdminLegalStructureController::class)->except('show');
+    Route::resource('rules', AdminLegalRuleController::class)->except('show');
 });
 
 Route::get('/ui-preview', function () {

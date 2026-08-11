@@ -21,6 +21,10 @@ class LegalRule extends Model
         'statut',
     ];
 
+    protected $casts = [
+        'date_entree_vigueur' => 'date',
+    ];
+
     public function legalStructures(): BelongsToMany
     {
         return $this->belongsToMany(LegalStructure::class, 'legal_structure_rule');

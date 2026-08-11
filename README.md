@@ -96,9 +96,9 @@ php artisan serve
 > Pour la génération IA, complétez les variables suivantes dans `.env` :
 
 ```dotenv
-AI_PROVIDER=openai
-OPENAI_API_KEY=your-key
-OPENAI_MODEL=gpt-4o
+GROQ_API_KEY=your-key
+GROQ_BASE_URL=https://api.groq.com/openai/v1
+GROQ_MODEL=llama-3.3-70b-versatile
 ```
 
 ### Variables d'environnement clés
@@ -108,9 +108,9 @@ OPENAI_MODEL=gpt-4o
 | `DB_CONNECTION` / `DB_DATABASE` | Connexion MySQL | `mysql` / `lawlens_morocco` |
 | `QUEUE_CONNECTION` | File d'attente | `database` |
 | `SESSION_DRIVER` | Stockage session | `database` |
-| `AI_PROVIDER` | Fournisseur IA | `openai` |
-| `OPENAI_API_KEY` | Clé API du fournisseur IA | — |
-| `OPENAI_MODEL` | Modèle utilisé | `gpt-4o` |
+| `GROQ_API_KEY` | Clé API Groq | — |
+| `GROQ_BASE_URL` | URL base de l'API Groq | `https://api.groq.com/openai/v1` |
+| `GROQ_MODEL` | Modèle Groq utilisé | `llama-3.3-70b-versatile` |
 
 ### Lancer le worker de queue (nécessaire pour l'IA)
 
@@ -151,6 +151,17 @@ L'API REST est préfixée par `/api`. La documentation Scribe est disponible à
 Utilisez le jeton Sanctum renvoyé par `POST /api/login` dans l'en-tête
 `Authorization: Bearer <token>`. Pour les appels web soumis aux cookies,
 préfixez la session via `GET /sanctum/csrf-cookie`.
+
+### Accès par session (SPA, même domaine)
+
+L'API accepte aussi l'authentification par **session** (cookies) pour les clients
+« première partie » (même domaine, défini par `SANCTUM_STATEFUL_DOMAINS`) :
+une fois connecté sur l'interface web, les appels `/api/*` émis depuis le
+navigateur sont authentifiés par la session — aucun jeton requis.
+
+Les requêtes de type `POST/PUT/DELETE` doivent alors être précédées d'un appel à
+`GET /sanctum/csrf-cookie`, puis envoyer l'en-tête `X-XSRF-TOKEN` (valeur du
+cookie `XSRF-TOKEN`, décodée URL) pour valider le CSRF.
 
 ## Docker
 

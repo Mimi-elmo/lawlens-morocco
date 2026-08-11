@@ -35,9 +35,10 @@ return [
         ],
     ],
 
-    'grok' => [
-        'api_key' => env('GROK_API_KEY'),
-        'base_url' => env('GROK_BASE_URL', 'https://api.x.ai/v1'),
+    'groq' => [
+        'api_key' => env('GROQ_API_KEY'),
+        'base_url' => env('GROQ_BASE_URL', 'https://api.groq.com/openai/v1'),
+        'model' => env('GROQ_MODEL', 'llama-3.3-70b-versatile'),
     ],
 
 ];

@@ -1,6 +1,7 @@
 @props([
     'label' => null,
     'name' => '',
+    'value' => null,
     'placeholder' => '',
     'rows' => 3,
     'helper' => null,
@@ -32,7 +33,7 @@
             'border-border text-secondary-900 focus:border-primary-500 focus:ring-primary-500/20' => !$hasError,
             'border-danger text-danger focus:border-danger focus:ring-danger/20' => $hasError,
         ])
-    >{{ old($name) }}</textarea>
+    >{{ old($name, $value) }}</textarea>
     @if ($helper && !$hasError)
         <p class="mt-1 text-xs text-secondary-500">{{ $helper }}</p>
     @endif

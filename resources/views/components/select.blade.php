@@ -1,6 +1,7 @@
 @props([
     'label' => null,
     'name' => '',
+    'value' => null,
     'placeholder' => '',
     'options' => [],
     'helper' => null,
@@ -34,8 +35,8 @@
         @if ($placeholder)
             <option value="">{{ $placeholder }}</option>
         @endif
-        @foreach ($options as $value => $label)
-            <option value="{{ $value }}" @selected(old($name) == $value)>{{ $label }}</option>
+        @foreach ($options as $optionValue => $optionLabel)
+            <option value="{{ $optionValue }}" @selected(old($name, $value) == $optionValue)>{{ $optionLabel }}</option>
         @endforeach
     </select>
     @if ($helper && !$hasError)
